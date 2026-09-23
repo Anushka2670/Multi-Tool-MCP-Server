@@ -4,45 +4,9 @@ from dotenv import load_dotenv
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.messages import ToolMessage
 import json
+from server_config import SERVERS
 
 load_dotenv()
-
-SERVERS = {
-    "math": {
-        "transport": "stdio",
-        "command": "C:/Users/anush/AppData/Local/Programs/Python/Python310/Scripts/uv.exe",
-        "args": [
-            "run",
-            "--directory",
-            "C:/Users/anush/OneDrive/Desktop/Math-Mcp-Server",
-            "fastmcp",
-            "run",
-            "main.py",
-        ],
-    },
-    "expense": {
-    "transport": "stdio",
-    "command": "C:/Users/anush/AppData/Local/Programs/Python/Python310/Scripts/uv.exe",
-    "args": [
-        "run",
-        "--directory",
-        "C:/Users/anush/OneDrive/Desktop/TestRemoteServer",
-        "fastmcp",
-        "run",
-        "main.py",
-    ],
-    },
-    "manim-server": {
-            "transport": "stdio",
-            "command": "C:/Users/anush/AppData/Local/Programs/Python/Python310/python.exe",
-            "args": [
-                "C:/Users/anush/OneDrive/Desktop/manim-mcp-server/src/manim_server.py"
-            ],
-            "env": {
-                "MANIM_EXECUTABLE": "C:/Users/anush/AppData/Local/Programs/Python/Python310/Scripts/manim.exe"
-            }
-        }
-}
 
 async def main():
     client = MultiServerMCPClient(SERVERS)

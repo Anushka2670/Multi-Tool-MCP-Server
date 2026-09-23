@@ -9,47 +9,7 @@ from dotenv import load_dotenv
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_mcp_adapters.client import MultiServerMCPClient
 from langchain_core.messages import HumanMessage, AIMessage, ToolMessage, SystemMessage
-
-# ─────────────────────────────
-# MCP servers: local math via uv + fastmcp
-# ─────────────────────────────
-SERVERS = {
-    "math": {
-        "transport": "stdio",
-        "command": "C:/Users/anush/AppData/Local/Programs/Python/Python310/Scripts/uv.exe",
-        "args": [
-            "run",
-            "--directory",
-            "C:/Users/anush/OneDrive/Desktop/Math-Mcp-Server",
-            "fastmcp",
-            "run",
-            "main.py",
-        ],
-    },
-    "expense": {
-    "transport": "stdio",
-    "command": "C:/Users/anush/AppData/Local/Programs/Python/Python310/Scripts/uv.exe",
-    "args": [
-        "run",
-        "--directory",
-        "C:/Users/anush/OneDrive/Desktop/TestRemoteServer",
-        "fastmcp",
-        "run",
-        "main.py",
-    ],
-    },
-    "manim-server": {
-            "transport": "stdio",
-            "command": "C:/Users/anush/AppData/Local/Programs/Python/Python310/python.exe",
-            "args": [
-                "C:/Users/anush/OneDrive/Desktop/manim-mcp-server/src/manim_server.py"
-            ],
-            "env": {
-                "MANIM_EXECUTABLE": "C:/Users/anush/AppData/Local/Programs/Python/Python310/Scripts/manim.exe"
-            }
-        }
-}
-
+from server_config import SERVERS
 
 SYSTEM_PROMPT = (
     "You have access to tools. When you choose to call a tool, do not narrate status updates. "

@@ -1,45 +1,53 @@
-A Python MCP client with a Streamlit chat interface. It connects to local MCP servers for math and expense tools, plus a Manim server, and uses Google Gemini to choose and call tools from natural-language requests.
+# Multi-Tool MCP Server
 
-The client repository does not include the MCP server implementations. The server projects must be installed separately and the paths in the client configuration must be updated for your computer.
+A Python MCP client with a Streamlit chat interface. Google Gemini can choose and call tools from the bundled math, expense tracker, and Manim MCP servers.
+
+The client launches the bundled server projects from `servers/` using the shared configuration in `server_config.py`.
 
 ## Features
 
 - Chat interface built with Streamlit (client2.py)
 - Gemini-powered tool selection
 - Connects to MCP servers over standard input/output (stdio)
-- Math tools: addition, subtraction, multiplication, division, power, and modulo (provided by the configured math server)
-- Expense tracking (provided by the configured expense server)
-- Manim operations (provided by the configured Manim server)
+- Math tools: addition, subtraction, multiplication, division, power, and modulo
+- Expense tracking: add, list, summarize, and delete expenses
+- Manim operations: start a render and check its status
 - A command-line example (client1.py) that sends a sample Manim request
 
 ## Requirements
 
-- Windows (the current server configuration uses Windows paths)
+- Windows
 - Python 3.12 or newer
 - uv
 - A Google Gemini API key
-- The math, expense, and Manim MCP server projects, installed and runnable locally
+- Manim's platform prerequisites for rendering animations
 
 ## Setup
 
 1. Clone this repository and open a terminal in its folder.
 
    ```powershell
-   git clone https://github.com/<your-github-username>/Multi-Tool-MCP-Server.git
+   git clone https://github.com/Anushka2670/Multi-Tool-MCP-Server.git
    cd Multi-Tool-MCP-Server
    ```
 
-2. Create and activate a virtual environment, then install the project dependencies and Google Generative AI integration.
+2. Create and activate a virtual environment, then install the client dependencies.
 
    ```powershell
    uv venv
    .\.venv\Scripts\Activate.ps1
-   uv pip install -e . langchain-google-genai
+   uv pip install langchain langchain-mcp-adapters langchain-google-genai python-dotenv streamlit
    ```
 
-3. Create a `.env` file in the repository root and add your Gemini API key using the variable name  `ChatGoogleGenerativeAI` (commonly `GOOGLE_API_KEY`). 
+3. Create a `.env` file in the repository root with your Gemini API key:
 
-4. Install or clone the math, expense, and Manim MCP server projects separately. In both `client1.py` and `client2.py`, update the `SERVERS` configuration with the correct local paths to each server's Python/uv executable, project directory, entry point, and—if needed—the Manim executable.
+   ```env
+   GOOGLE_API_KEY=your_api_key_here
+   ```
+
+   Keep `.env` private; it is excluded by `.gitignore`.
+
+4. Keep `uv` available on your PATH. On first use, `uv run` prepares the environment for each bundled server from its `pyproject.toml`.
 
 5. Start the Streamlit chat interface:
 
@@ -61,4 +69,6 @@ The client repository does not include the MCP server implementations. The serve
 | `expense`      | Expense tracking tools                                               |
 | `manim-server` | Manim-powered animation operations                                   |
 
-The available tools depend on the server implementations installed on your machine.
+The expense server creates `servers/expense/expense.db` locally. The database and Manim render output are excluded by `.gitignore`.
+
+The Manim server's license and attribution are included in `servers/manim/LICENSE.txt` and `servers/manim/README.md`.

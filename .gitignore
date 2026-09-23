@@ -5,3 +5,7 @@
 venv/
 __pycache__/
 *.py[cod]
+
+# Local expense records and generated Manim renders
+servers/expense/expense.db
+servers/manim/src/media/
